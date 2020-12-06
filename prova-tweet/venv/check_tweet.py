@@ -8,7 +8,7 @@ consumer_secret = credentials.consumer_secret
 access_token = credentials.access_token
 access_token_secret = credentials.access_token_secret
 
-#Connection to tweeter
+#Connection to twitter
 auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
 auth.set_access_token(access_token,access_token_secret)
 
