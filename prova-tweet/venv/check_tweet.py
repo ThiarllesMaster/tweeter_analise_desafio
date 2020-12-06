@@ -15,14 +15,14 @@ auth.set_access_token(access_token,access_token_secret)
 api = tweepy.API(auth)
 
 name = input("Inform the tweet which you want to obtain information:")
-tweets = api.search(name)
+total_records_search = int(input("Inform the total number of records to be queried:"))
 
 tweet_positive = 0
 tweet_negative = 0
 tweet_neutral =  0
 total_tweets = 0
 
-for tweet in tweets:
+for tweet in tweepy.Cursor(api.search, q = name).items(total_records_search):
     phrase = TextBlob(tweet.text)
     if (phrase.sentiment.polarity == 0):
         tweet_neutral = tweet_neutral + 1
@@ -47,4 +47,4 @@ tweet_positive = calculate_percentage(tweet_positive, total_tweets)
 tweet_negative = calculate_percentage(tweet_negative, total_tweets)
 tweet_neutral = calculate_percentage(tweet_neutral,   total_tweets)
 
-graph.drawGraph(tweet_positive, tweet_negative, tweet_neutral)
+graph.drawGraph(tweet_positive, tweet_negative, tweet_neutral, name)
